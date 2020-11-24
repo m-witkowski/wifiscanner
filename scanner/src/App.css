@@ -1,0 +1,142 @@
+:root {
+  --main-color: #BC1043;
+  --secondary-color: #EE366D;
+  --main-background: #202020;
+  --main-gray: #DFDFDF;
+  --shadow: 0px 0px 10px 0.1px rgba(0, 0, 0, 0.1);
+  --button-color: linear-gradient(to right, var(--main-color), var(--secondary-color));
+}
+
+.App {
+  text-align: center;
+  font-family: "Ubuntu";
+}
+
+.appHeader {
+  height: 10vh;
+  background-color: var(--main-background);
+  width: 100%;
+  justify-content: left;
+  align-items: center;
+  display: flex;
+  pointer-events: none;
+}
+
+.siteTitle {
+  color: white;
+  font-size: 6vh;
+  font-weight: medium;
+  margin-left: 10vw;
+  margin-top: 2vh;
+}
+
+.wifiColor {
+  color: var(--main-color);
+}
+
+.welcomeScreen {
+  height: 70vh;
+  width: 90vw;
+  margin: 5vh 5vw 5vh 5vw;
+  box-shadow: var(--shadow);
+  background-color: white !important;
+  border-radius: 50px;
+}
+
+.mainBody {
+  height: 75.4vh;
+}
+
+.btn {
+  border-radius: 50px !important;
+}
+
+.btn-link {
+  color: var(--main-color) !important;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background: var(--button-color) !important;
+  border-color: var(--main-color) !important;
+  transition: all 0.5s !important;
+}
+
+.btn-primary:hover {
+  background: white !important;
+  color: var(--main-color) !important;
+  transition: all 0.5s !important;
+}
+
+.btn-link:hover {
+  text-decoration: none;
+}
+
+.accordionStyle {
+  width: 35vw;
+  height: 50vh;
+}
+
+.details1 {
+  width: 35vw;
+  height: 29vh;
+  box-shadow: var(--shadow);
+  border-radius: 5px;
+  margin-bottom: 1vh;
+}
+
+.details2 {
+  width: 35vw;
+  height: 20vh;
+  border-radius: 5px;
+  box-shadow: var(--shadow);
+}
+
+.spinner-border {
+  color: var(--main-color);
+}
+
+.appFooter {
+  color: white;
+  background-color: var(--main-background);
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+.appFooter p {
+  margin: 1vh 0 0 10vw;
+  font-size: 3vh;
+  color: var(--main-color);
+  pointer-events: none;
+}
+
+.appFooter p span {
+  color: white;
+}
+
+.networkCardHeader {
+  background-color: white;
+  border-radius: 10px !important;
+  border: none !important;
+  box-shadow: var(--shadow);
+}
+
+.networkCardHeader:hover {
+  background: var(--button-color);
+}
+
+.networkCardHeader:hover .btn-link{
+  color: white !important;
+}
+
+.card {
+  border: none !important;
+  padding: 0.61vh;
+  border-radius: 10px !important;
+}
+
+.buttons {
+  width: 90vw;
+}
