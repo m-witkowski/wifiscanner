@@ -3,75 +3,35 @@ import { Container, Button, Row, Col, Jumbotron } from 'react-bootstrap';
 import { NetworkList } from './components/networkList/networkList';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import axios from 'axios';
 
 interface Networks {
-  ssid: string,
-  freq: number,
-  signal: number,
   channel: number,
-  index: number
+  ccmp: string,
+  freq: number,
+  mac: string,
+  signal: number,
+  quality: number,
+  ssid: string,
+  tkip: string,
+  wep: string,
+  wpa: string,
+  wpa2: string
 }
 
-let testNetworks: Networks[] = [{
-  ssid: "Test1",
-  freq: 2400,
-  signal: 10,
-  channel: 12,
-  index: 0
-}, {
-  ssid: "Test2",
-  freq: 2400,
-  signal: 10,
-  channel: 12,
-  index: 1
-}, {
-  ssid: "Test3",
-  freq: 2400,
-  signal: 10,
-  channel: 12,
-  index: 2
-}, {
-  ssid: "Test4",
-  freq: 5180,
-  signal: 10,
-  channel: 12,
-  index: 3
-}, {
-  ssid: "Test5",
-  freq: 2400,
-  signal: 10,
-  channel: 12,
-  index: 4
-}, {
-  ssid: "Test6",
-  freq: 2400,
-  signal: 10,
-  channel: 12,
-  index: 5
-}, {
-  ssid: "Test7",
-  freq: 2400,
-  signal: 10,
-  channel: 12,
-  index: 6
-},
-{
-  ssid: "Test8",
-  freq: 2400,
-  signal: 10,
-  channel: 12,
-  index: 7
-}, {
-  ssid: "Test9",
-  freq: 2400,
-  signal: 10,
-  channel: 12,
-  index: 8
-}]
+
+const parseNetworks = (data:any) => {
+  let dataToString = data.toString().slice(2).replace(/\\"/g, '');
+  console.log(dataToString);
+  let parsedData = JSON.parse(dataToString);
+  let returnedData = parsedData.map((element: Networks, index: number) => {return{...element, index: index}});
+  return returnedData;
+}
 
 interface State {
-  scanStart?: ((event: React.MouseEvent<HTMLElement, MouseEvent>) => void)
-  visible: boolean;
+  scanStart?: ((event: React.MouseEvent<HTMLElement, MouseEvent>) => void),
+  scanResult: ((event: React.MouseEvent<HTMLElement, MouseEvent>) => void),
+  visible: boolean,
   networks: Networks[]
 }
 
@@ -83,14 +43,16 @@ class App extends React.Component<Props, State>{
   constructor(props: Props){
     super(props);
     this.state = {
-      networks: testNetworks,
+      networks: [],
       visible: true,
-      scanStart: ((event: React.MouseEvent<HTMLElement, MouseEvent>) => this.setState((state)=>{return{...state, visible: !state.visible}}))
+      scanStart: ((event: React.MouseEvent<HTMLElement, MouseEvent>) => this.setState((state)=>{return{...state, visible: !state.visible}})),
+      scanResult: ((event: React.MouseEvent<HTMLElement, MouseEvent>) => axios.get('/data').then(response => {this.setState(state => {return{...state, networks: parseNetworks(response.data), visible: !state.visible}})}))
     }
   }
-  render() {
-    const {networks, visible, scanStart} = this.state;
 
+
+  render() {
+    const {networks, visible, scanStart, scanResult} = this.state;
     return (
     <div className="App">
       <header className="appHeader">
@@ -101,7 +63,7 @@ class App extends React.Component<Props, State>{
         <Jumbotron className="welcomeScreen d-flex flex-column align-items-center justify-content-center">
           <h2>Welcome to my wireless networks scanning application!</h2>
           <p>For starters, please click the button below.</p>
-          <Button onClick={scanStart}>Scan for networks</Button>
+          <Button onClick={scanResult}>Scan for networks</Button>
         </Jumbotron>
         : null}
         {visible ? null : 
@@ -116,7 +78,7 @@ class App extends React.Component<Props, State>{
           </Col>
         </Row>
         <Row className=" d-flex allign-items-center justify-content-center buttons">
-          <Button className="mx-3">Plot chart</Button>
+          <Button className="mx-3" onClick={scanResult}>Plot chart</Button>
           <Button className="mx-3" onClick={scanStart}>Scan again</Button>
         </Row>
       </Container>

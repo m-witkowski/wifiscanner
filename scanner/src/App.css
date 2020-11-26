@@ -140,3 +140,7 @@
 .buttons {
   width: 90vw;
 }
+
+.signalQualityP{ 
+  margin-bottom: 0 !important;
+}

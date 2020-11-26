@@ -3,7 +3,17 @@ import {NetworkCard} from '../networkCard/networkCard';
 import {Accordion} from 'react-bootstrap';
 
 interface Props {
-    networks: Array<{ssid: string, freq: number, signal: number, channel: number, index: number}>
+    networks: Array<{channel: number,
+        ccmp: string,
+        freq: number,
+        mac: string,
+        signal: number,
+        quality: number,
+        ssid: string,
+        tkip: string,
+        wep: string,
+        wpa: string,
+        wpa2: string}>
 }
 
 export const NetworkList:React.FC<Props> = ({networks}) => (
